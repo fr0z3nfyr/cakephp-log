@@ -9,8 +9,8 @@ A plugin to log some request info and related database changes. Including:
 
 ## Installation
 
-You may install the Log Plugin through (Composer)[http://getcomposer.org] or
-(download)[https://github.com/andtxr/cakephp-log/archive/master.zip] the source.
+You may install the Log Plugin through [Composer](http://getcomposer.org) or
+[download](https://github.com/andtxr/cakephp-log/archive/master.zip) the source.
 
 ### Composer
 
@@ -18,7 +18,7 @@ You may install the Log Plugin through (Composer)[http://getcomposer.org] or
 
 ### Source
 
-(Download)[https://github.com/andtxr/cakephp-log/archive/master.zip] the source
+[Download](https://github.com/andtxr/cakephp-log/archive/master.zip) the source
 and unpack it contents inside ``/Plugin/Log``
 
 ## Activation
