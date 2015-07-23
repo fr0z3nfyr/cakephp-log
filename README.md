@@ -35,7 +35,7 @@ Load the plugin schema file through your CLI:
     cake schema update --plugin Log
 ```
 
-You may import the ``log.sql`` file too.
+You may import the ``Config/Schema/log.sql`` file too.
 
 ## Usage
 
