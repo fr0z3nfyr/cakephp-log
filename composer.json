@@ -1,0 +1,28 @@
+{
+  "name": "andtxr/cakephp-log",
+  "description": "A plugin to log some request info and related database changes",
+  "type": "cakephp-plugin",
+  "keywords": [
+    "cakephp",
+    "plugin",
+    "behavior",
+    "log",
+    "audit"
+  ],
+  "homepage": "http://github.com/andtxr/cakephp-log",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "André Teixeira",
+      "email": "hello@andtxr.com",
+      "homepage": "http://github.com/andtxr"
+    }
+  ],
+  "require": {
+    "php": ">=5.2.8",
+    "composer/installers": "*"
+  },
+  "extra": {
+    "installer-name": "Log"
+  }
+}
