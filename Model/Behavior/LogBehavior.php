@@ -39,9 +39,9 @@ class LogBehavior extends ModelBehavior {
     {
         $alias = $Model->alias;
         if ($alias != 'Log') {
-            $data = self::_set_data($Model);
-            $data = self::_set_data_by_save($created, $options, $data);
-            self::_save_log($data);
+            $data = $this->_set_data($Model);
+            $data = $this->_set_data_by_save($created, $options, $data);
+            $this->_save_log($data);
         }
     }
 
@@ -54,9 +54,9 @@ class LogBehavior extends ModelBehavior {
     {
         $alias = $Model->alias;
         if ($alias != 'Log') {
-            $data = self::_set_data($Model);
-            $data = self::_set_data_by_delete($data);
-            self::_save_log($data);
+            $data = $this->_set_data($Model);
+            $data = $this->_set_data_by_delete($data);
+            $this->_save_log($data);
         }
     }
 
@@ -66,7 +66,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected static function _get_data(Model $Model)
+    protected function _get_data(Model $Model)
     {
         $data = array();
         $data['model_alias'] = $Model->alias;
@@ -80,7 +80,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    public static function _get_user($data, $userFields)
+    protected function _get_user($data, $userFields)
     {
         $userSession = CakeSession::read('Auth');
         if (!empty($userSession)) {
@@ -107,7 +107,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected static function _get_request($data)
+    protected function _get_request($data)
     {
         $request = new CakeRequest();
         $data['request_user_agent'] = $request::header('User-Agent');
@@ -127,12 +127,12 @@ class LogBehavior extends ModelBehavior {
     protected function _set_data(Model $Model)
     {
         $settings = $this->settings[$Model->alias];
-        $data = self::_get_data($Model);
-        $data = self::_get_user(
+        $data = $this->_get_data($Model);
+        $data = $this->_get_user(
             $data,
             $settings['userFields']
         );
-        $data = self::_get_request($data);
+        $data = $this->_get_request($data);
 
         return $data;
     }
