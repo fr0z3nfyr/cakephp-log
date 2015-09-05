@@ -12,7 +12,7 @@ class LogBehavior extends ModelBehavior {
     /**
      * @var array
      */
-    protected $_defaultConfig = array(
+    private $_defaultConfig = array(
         'userFields' => array(
             'id', 'name', 'username', 'email'
         )
@@ -66,7 +66,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected function _get_data(Model $Model)
+    private function _get_data(Model $Model)
     {
         $data = array();
         $data['model_alias'] = $Model->alias;
@@ -80,7 +80,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected function _get_user($data, $userFields)
+    private function _get_user($data, $userFields)
     {
         $userSession = CakeSession::read('Auth');
         if (!empty($userSession)) {
@@ -107,7 +107,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected function _get_request($data)
+    private function _get_request($data)
     {
         $request = new CakeRequest();
         $data['request_user_agent'] = $request::header('User-Agent');
@@ -124,7 +124,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return array|mixed
      */
-    protected function _set_data(Model $Model)
+    private function _set_data(Model $Model)
     {
         $settings = $this->settings[$Model->alias];
         $data = $this->_get_data($Model);
@@ -144,7 +144,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected function _set_data_by_save($created, $options, $data)
+    private function _set_data_by_save($created, $options, $data)
     {
         $data['model_options'] = json_encode($options);
         $data['model_action'] = ($created == true) ? 'create' : 'update';
@@ -158,7 +158,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    protected function _set_data_by_delete($data)
+    private function _set_data_by_delete($data)
     {
         $data['model_action'] = 'delete';
 
@@ -170,7 +170,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @throws Exception
      */
-    protected static function _save_log($data)
+    private static function _save_log($data)
     {
         $log = new Log();
         $log->create($data);
