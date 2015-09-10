@@ -13,10 +13,15 @@ class LogBehavior extends ModelBehavior {
      * @var array
      */
     private $_defaultConfig = array(
+        'userModels' => array(
+            'Admin', 'Manager', 'User'
+        ),
         'userFields' => array(
             'id', 'name', 'username', 'email'
         )
     );
+
+    private $currentSettings;
 
     /**
      * @param Model $Model
@@ -25,7 +30,7 @@ class LogBehavior extends ModelBehavior {
     public function setup(Model $Model, $config = array())
     {
         $this->settings[$Model->alias] = $this->_defaultConfig;
-        $this->settings[$Model->alias] = $config + $this->settings[$Model->alias];
+        $this->currentSettings = $this->settings[$Model->alias] = $config + $this->settings[$Model->alias];
     }
 
     /**
@@ -84,16 +89,17 @@ class LogBehavior extends ModelBehavior {
     {
         $userSession = CakeSession::read('Auth');
         if (!empty($userSession)) {
-
-            $key = current(array_keys($userSession));
             $userData = array();
-
-            foreach ($userSession[$key] as $userKey => $userValue) {
-                if (in_array($userKey, $userFields)) {
-                    $userData[$key][$userKey] = $userValue;
+            $userModels = $this->currentSettings['userModels'];
+            foreach ($userModels as $userModel) {
+                if (array_key_exists($userModel, $userSession)) {
+                    foreach ($userSession[$userModel] as $userKey => $userValue) {
+                        if (in_array($userKey, $userFields)) {
+                            $userData[$userModel][$userKey] = $userValue;
+                        }
+                    }
                 }
             }
-
             $data['auth_user'] = json_encode($userData);
 
             return $data;
@@ -126,11 +132,10 @@ class LogBehavior extends ModelBehavior {
      */
     private function _set_data(Model $Model)
     {
-        $settings = $this->settings[$Model->alias];
         $data = $this->_get_data($Model);
         $data = $this->_get_user(
             $data,
-            $settings['userFields']
+            $this->currentSettings['userFields']
         );
         $data = $this->_get_request($data);
 
