@@ -51,6 +51,7 @@ user shall be saved:
 ```php
     public $actsAs = array(
         'Log.Log' => array(
+            'userModels' => array('Admin'),
             'userFields' => array('id', 'name')
         )
     );
