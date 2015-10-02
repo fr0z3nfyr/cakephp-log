@@ -12,7 +12,7 @@ class LogBehavior extends ModelBehavior {
     /**
      * @var array
      */
-    private $_defaultConfig = array(
+    protected $_defaultConfig = array(
         'userModels' => array(
             'Admin', 'Manager', 'User'
         ),
@@ -21,7 +21,7 @@ class LogBehavior extends ModelBehavior {
         )
     );
 
-    private $currentSettings;
+    protected $currentSettings;
 
     /**
      * @param Model $Model
@@ -85,7 +85,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    private function _get_user($data, $userFields)
+    protected function _get_user($data, $userFields)
     {
         $userSession = CakeSession::read('Auth');
         if (!empty($userSession)) {
@@ -113,7 +113,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    private function _get_request($data)
+    protected function _get_request($data)
     {
         $request = new CakeRequest();
         $data['request_user_agent'] = $request::header('User-Agent');
@@ -149,7 +149,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    private function _set_data_by_save($created, $options, $data)
+    protected function _set_data_by_save($created, $options, $data)
     {
         $data['model_options'] = json_encode($options);
         $data['model_action'] = ($created == true) ? 'create' : 'update';
@@ -163,7 +163,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @return mixed
      */
-    private function _set_data_by_delete($data)
+    protected function _set_data_by_delete($data)
     {
         $data['model_action'] = 'delete';
 
@@ -175,7 +175,7 @@ class LogBehavior extends ModelBehavior {
      *
      * @throws Exception
      */
-    private static function _save_log($data)
+    protected static function _save_log($data)
     {
         $log = new Log();
         $log->create($data);
